@@ -20,7 +20,28 @@ stages:
     displayName:
 
   - stage: 'pack'
+    condition: succeded() #the state needed for pipeline to run.    
+      displayName: 'build-mvc'  
+      jobs:
+        - job:
+          condition: and(suceeded(), eq(['BranchName'], 'fred')) #any two conditions.
+          displayName:
+          pool:
+        - steps:
+          - script: |
+              echo 'build passed...'
+
   - stage: 'deploy'
+      condition: succeded() #the state needed for pipeline to run.    
+        displayName: 'build-mvc'  
+        jobs:
+          - job:
+            condition: and(suceeded(), eq(['BranchName'], 'fred')) #any two conditions.
+            displayName:
+            pool:
+          - steps:
+            - script: |
+                echo 'build passed...'
 
 trigger:
   - branches:
@@ -29,3 +50,5 @@ trigger:
 
 variables:
   - testVar: 'tuesday'
+
+
