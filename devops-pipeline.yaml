@@ -9,8 +9,7 @@ stages:
         condition: and(suceeded(), eq(['BranchName'], 'fred')) #any two conditions.
         displayName:
         pool:
-          vmImage: 'ubuntu-16.04'
-       steps:
+      - steps:
         - script: |
             echo 'build passed...'
 
