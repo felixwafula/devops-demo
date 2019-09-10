@@ -1,0 +1,17 @@
+name:
+
+stages:
+  - stage: 'build'
+    displayName: 'build-mvc' #literal
+    jobs:
+      - job:
+        displayName:
+        pool:
+          vmImage: 'ubuntu-16.04'
+        steps:
+          - step:
+            displayName:
+            - script: |
+            - task: DotnetInstaller@1
+              input: '2.2.401'
+            - task:
