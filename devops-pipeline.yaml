@@ -22,7 +22,7 @@ stages:
   - stage: 'pack'
   - stage: 'deploy'
 
-triggers:
+trigger:
   - branches:
       include:
         - master   
