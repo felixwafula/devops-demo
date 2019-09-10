@@ -1,17 +1,31 @@
-name:
+name: ($date:yyyyMMdd)(rev:.rr) #20190910.00
 
 stages:
   - stage: 'build'
-    displayName: 'build-mvc' #literal
+    condition: succeded() #the state needed for pipeline to run.    
+    displayName: 'build-mvc'  
     jobs:
       - job:
+        condition: and(suceeded(), eq(['BranchName'], 'fred')) #any two conditions.
         displayName:
         pool:
           vmImage: 'ubuntu-16.04'
-        steps:
-          - step:
-            displayName:
-            - script: |
-            - task: DotnetInstaller@1
-              input: '2.2.401'
-            - task:
+       steps:
+        - script: |
+            echo 'build passed...'
+
+  - stage: 'test'
+    condition: suceeded('build') #only run if test run succedsfully
+    dependsOn: #only run this stage if other stages have failed.
+      - build
+    displayName:
+
+  - stage: 'pack'
+  - stage: 'deploy'
+
+triggers:
+  - branches:
+      include:
+        - master   
+
+variables:
